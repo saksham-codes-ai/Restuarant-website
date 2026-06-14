@@ -1,1 +1,68 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ restaurant.name }} - {{ restaurant.tagline }}</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">{{ restaurant.name }}</a>
+            <ul class="nav-menu">
+                <li><a href="/" class="nav-link active">Home</a></li>
+                <li><a href="/menu" class="nav-link">Menu</a></li>
+                <li><a href="/about" class="nav-link">About</a></li>
+                <li><a href="/contact" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title animate-fade">{{ restaurant.name }}</h1>
+            <p class="hero-subtitle animate-fade">{{ restaurant.tagline }}</p>
+            <div class="hero-buttons animate-fade">
+                <a href="/menu" class="btn btn-primary">View Menu</a>
+                <a href="/contact" class="btn btn-secondary">Contact Us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-container">
+            {% for stat in restaurant.stats %}
+            <div class="stat-item animate-slide">
+                <h3 class="stat-number">{{ stat.number }}</h3>
+                <p class="stat-label">{{ stat.label }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2024 {{ restaurant.name }}. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll animation
+        document.querySelectorAll('a[href^="/"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const href = this.getAttribute('href');
+                if (href !== '/') {
+                    window.location.href = href;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
