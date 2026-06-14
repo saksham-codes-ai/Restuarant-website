@@ -10,12 +10,12 @@
     <nav class="navbar">
         <div class="nav-container">
             <a href="/" class="nav-logo">{{ restaurant.name }}</a>
-            <ul class="nav-menu">
-                <li><a href="/" class="nav-link active">Home</a></li>
-                <li><a href="/menu" class="nav-link">Menu</a></li>
-                <li><a href="/about" class="nav-link">About</a></li>
-                <li><a href="/contact" class="nav-link">Contact</a></li>
-            </ul>
+            <div class="nav-buttons">
+                <a href="/" class="nav-btn active">Home</a>
+                <a href="/menu" class="nav-btn">Menu</a>
+                <a href="/about" class="nav-btn">About</a>
+                <a href="/contact" class="nav-btn">Contact</a>
+            </div>
         </div>
     </nav>
 
@@ -31,13 +31,13 @@
             <h1 class="hero-title animate-fade">{{ restaurant.name }}</h1>
             <p class="hero-subtitle animate-fade">{{ restaurant.tagline }}</p>
             <div class="hero-buttons animate-fade">
-                <a href="/menu" class="btn btn-primary">View Menu</a>
-                <a href="/contact" class="btn btn-secondary">Contact Us</a>
+                <a href="/menu" class="btn btn-primary">View Full Menu</a>
+                <a href="/contact" class="btn btn-secondary">Order Now</a>
             </div>
             <div class="hero-features animate-fade">
                 <div class="feature-item">🍕 Fresh Pizza</div>
-                <div class="feature-item">🚀 Quick Delivery</div>
-                <div class="feature-item">⭐ Best Quality</div>
+                <div class="feature-item">🚀 30 Min Delivery</div>
+                <div class="feature-item">⭐ Premium Quality</div>
             </div>
         </div>
     </section>
@@ -45,7 +45,7 @@
     <section class="stats">
         <div class="stats-container">
             {% for stat in restaurant.stats %}
-            <div class="stat-item animate-slide" data-value="{{ stat.number }}">
+            <div class="stat-item animate-slide">
                 <h3 class="stat-number">{{ stat.number }}</h3>
                 <p class="stat-label">{{ stat.label }}</p>
             </div>
@@ -54,7 +54,7 @@
     </section>
 
     <section class="featured-section">
-        <h2 class="featured-title">⭐ Why Choose Us?</h2>
+        <h2 class="featured-title">⭐ Why Choose Pizza With Spice?</h2>
         <div class="featured-grid">
             <div class="featured-card">
                 <div class="featured-icon">🍕</div>
@@ -64,38 +64,46 @@
             <div class="featured-card">
                 <div class="featured-icon">🚀</div>
                 <h3>Quick Delivery</h3>
-                <p>Hot & fresh in 30 mins</p>
+                <p>Hot & fresh in 30 minutes</p>
             </div>
             <div class="featured-card">
                 <div class="featured-icon">⭐</div>
-                <h3>Best Quality</h3>
-                <p>Premium cheese & spices</p>
+                <h3>Premium Quality</h3>
+                <p>Premium cheese & aromatic spices</p>
             </div>
             <div class="featured-card">
                 <div class="featured-icon">👨‍👩‍👧</div>
                 <h3>Family Friendly</h3>
-                <p>Great for groups & events</p>
+                <p>Perfect for groups & events</p>
             </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <h2 class="cta-title">Ready to Taste?</h2>
+        <p class="cta-text">Order now and get fresh pizza in 30 mins!</p>
+        <div class="cta-buttons">
+            <a href="/menu" class="btn btn-primary btn-large">View Menu</a>
+            <a href="/contact" class="btn btn-secondary btn-large">Call: 85436xxxxx</a>
         </div>
     </section>
 
     <footer class="footer">
         <div class="footer-content">
             <p>&copy; 2024 {{ restaurant.name }}. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="/">Home</a>
+                <a href="/menu">Menu</a>
+                <a href="/about">About</a>
+                <a href="/contact">Contact</a>
+            </div>
         </div>
     </footer>
 
     <script>
-        // Counter animation
-        const counters = document.querySelectorAll('.stat-number');
-        counters.forEach(counter => {
-            const value = counter.dataset.value;
-            counter.textContent = value;
-        });
-
         // Scroll animation
         document.addEventListener('scroll', () => {
-            const elements = document.querySelectorAll('.animate-slide, .animate-card');
+            const elements = document.querySelectorAll('.animate-slide, .animate-card, .featured-card');
             elements.forEach(el => {
                 const position = el.getBoundingClientRect();
                 if (position.top < window.innerHeight - 100) {
