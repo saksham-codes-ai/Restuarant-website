@@ -3,6 +3,7 @@ from datetime import datetime
 
 app = Flask(__name__)
 
+# Home page
 @app.route('/')
 def home():
     restaurant = {
@@ -21,6 +22,7 @@ def home():
     }
     return render_template('home.html', restaurant=restaurant)
 
+# Menu page
 @app.route('/menu')
 def menu():
     categories = ['All', 'Main Course', 'Rice', 'Chinese', 'Fast Food', 'Drink', 'Healthy']
@@ -48,10 +50,12 @@ def menu():
     ]
     return render_template('menu.html', categories=categories, menu_items=menu_items)
 
+# About page
 @app.route('/about')
 def about():
     return render_template('about.html')
 
+# Contact page
 @app.route('/contact')
 def contact():
     restaurant = {
@@ -62,6 +66,7 @@ def contact():
     }
     return render_template('contact.html', restaurant=restaurant)
 
+# Order API
 @app.route('/api/order', methods=['POST'])
 def submit_order():
     data = request.json
