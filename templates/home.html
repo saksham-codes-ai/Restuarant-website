@@ -20,6 +20,13 @@
     </nav>
 
     <section class="hero">
+        <div class="hero-particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
         <div class="hero-content">
             <h1 class="hero-title animate-fade">{{ restaurant.name }}</h1>
             <p class="hero-subtitle animate-fade">{{ restaurant.tagline }}</p>
@@ -27,17 +34,48 @@
                 <a href="/menu" class="btn btn-primary">View Menu</a>
                 <a href="/contact" class="btn btn-secondary">Contact Us</a>
             </div>
+            <div class="hero-features animate-fade">
+                <div class="feature-item">🍕 Fresh Pizza</div>
+                <div class="feature-item">🚀 Quick Delivery</div>
+                <div class="feature-item">⭐ Best Quality</div>
+            </div>
         </div>
     </section>
 
     <section class="stats">
         <div class="stats-container">
             {% for stat in restaurant.stats %}
-            <div class="stat-item animate-slide">
+            <div class="stat-item animate-slide" data-value="{{ stat.number }}">
                 <h3 class="stat-number">{{ stat.number }}</h3>
                 <p class="stat-label">{{ stat.label }}</p>
             </div>
             {% endfor %}
+        </div>
+    </section>
+
+    <section class="featured-section">
+        <h2 class="featured-title">⭐ Why Choose Us?</h2>
+        <div class="featured-grid">
+            <div class="featured-card">
+                <div class="featured-icon">🍕</div>
+                <h3>Fresh Pizza</h3>
+                <p>Made with fresh ingredients daily</p>
+            </div>
+            <div class="featured-card">
+                <div class="featured-icon">🚀</div>
+                <h3>Quick Delivery</h3>
+                <p>Hot & fresh in 30 mins</p>
+            </div>
+            <div class="featured-card">
+                <div class="featured-icon">⭐</div>
+                <h3>Best Quality</h3>
+                <p>Premium cheese & spices</p>
+            </div>
+            <div class="featured-card">
+                <div class="featured-icon">👨‍👩‍👧</div>
+                <h3>Family Friendly</h3>
+                <p>Great for groups & events</p>
+            </div>
         </div>
     </section>
 
@@ -46,5 +84,26 @@
             <p>&copy; 2024 {{ restaurant.name }}. All rights reserved.</p>
         </div>
     </footer>
+
+    <script>
+        // Counter animation
+        const counters = document.querySelectorAll('.stat-number');
+        counters.forEach(counter => {
+            const value = counter.dataset.value;
+            counter.textContent = value;
+        });
+
+        // Scroll animation
+        document.addEventListener('scroll', () => {
+            const elements = document.querySelectorAll('.animate-slide, .animate-card');
+            elements.forEach(el => {
+                const position = el.getBoundingClientRect();
+                if (position.top < window.innerHeight - 100) {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
