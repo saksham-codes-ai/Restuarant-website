@@ -19,28 +19,68 @@
         </div>
     </nav>
 
+    <section class="menu-hero">
+        <h1 class="menu-hero-title">Our Menu</h1>
+        <p class="menu-hero-subtitle">50+ Delicious Items - Fresh & Hot</p>
+    </section>
+
     <section class="menu-section">
-        <h1 class="menu-title">Our Menu</h1>
-        
         <div class="menu-filters">
             {% for category in categories %}
             <button class="filter-btn {% if category == 'All' %}active{% endif %}" 
-                    data-category="{{ category }}">{{ category }}</button>
+                    data-category="{{ category }}">
+                <span class="filter-icon">{% if category == 'Pizza' %}🍕{% elif category == 'Burgers' %}🍔{% elif category == 'Sandwich' %}🥪{% elif category == 'Snacks' %}🍟{% elif category == 'Pasta' %}🍝{% elif category == 'Shakes' %}🥤{% elif category == 'Coffee' %}☕{% elif category == 'Mojito' %}🍹{% elif category == 'Combos' %}🎁{% else %}✨{% endif %}</span>
+                {{ category }}
+            </button>
             {% endfor %}
         </div>
 
-        <div class="menu-grid">
+        <div class="menu-grid" id="menuGrid">
             {% for item in menu_items %}
-            <div class="menu-item animate-card" data-category="{{ item.category }}">
+            <div class="menu-card animate-card" data-category="{{ item.category }}">
                 {% if item.popular %}
-                <span class="popular-badge">Popular</span>
+                <div class="popular-badge">⭐ Popular</div>
                 {% endif %}
-                <div class="menu-icon">{{ item.image }}</div>
-                <h3 class="menu-name">{{ item.name }}</h3>
-                <p class="menu-desc">{{ item.description }}</p>
-                <div class="menu-price">₹{{ item.price }}</div>
+                <div class="card-image">
+                    <div class="card-icon">{{ item.image }}</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-name">{{ item.name }}</h3>
+                    <p class="card-desc">{{ item.description }}</p>
+                    <div class="card-footer">
+                        <span class="card-price">₹{{ item.price }}</span>
+                        <button class="add-btn">Add +</button>
+                    </div>
+                </div>
             </div>
             {% endfor %}
+        </div>
+    </section>
+
+    <section class="combo-section">
+        <h2 class="combo-title">🎁 Special Combos</h2>
+        <div class="combo-grid">
+            <div class="combo-card">
+                <div class="combo-icon">🍔</div>
+                <h3>Burger Combo</h3>
+                <p>2 Cheese Burger + Fries + 2 Coke</p>
+                <span class="combo-price">₹250</span>
+                <button class="combo-btn">Order Now</button>
+            </div>
+            <div class="combo-card">
+                <div class="combo-icon">🍕</div>
+                <h3>Pizza + Shake Combo</h3>
+                <p>Medium Pizza + 2 Shakes</p>
+                <span class="combo-price">₹350</span>
+                <button class="combo-btn">Order Now</button>
+            </div>
+            <div class="combo-card">
+                <div class="combo-icon">🎁</div>
+                <h3>Mega Combo</h3>
+                <p>Large Pizza + 3 Burger + Garlic Bread + 2 Lava + 2 Coke</p>
+                <span class="combo-price">₹600</span>
+                <button class="combo-btn">Order Now</button>
+            </div>
         </div>
     </section>
 
@@ -56,10 +96,16 @@
                 document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 const category = btn.dataset.category;
-                document.querySelectorAll('.menu-item').forEach(item => {
-                    item.style.display = (category === 'All' || item.dataset.category === category) ? 'block' : 'none';
+                document.querySelectorAll('.menu-card').forEach(card => {
+                    card.style.display = (category === 'All' || card.dataset.category === category) ? 'block' : 'none';
                 });
             });
+        });
+
+        // Scroll animation
+        const cards = document.querySelectorAll('.menu-card');
+        cards.forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.1}s`;
         });
     </script>
 </body>
