@@ -10,12 +10,12 @@
     <nav class="navbar">
         <div class="nav-container">
             <a href="/" class="nav-logo">Pizza With Spice</a>
-            <ul class="nav-menu">
-                <li><a href="/" class="nav-link">Home</a></li>
-                <li><a href="/menu" class="nav-link active">Menu</a></li>
-                <li><a href="/about" class="nav-link">About</a></li>
-                <li><a href="/contact" class="nav-link">Contact</a></li>
-            </ul>
+            <div class="nav-buttons">
+                <a href="/" class="nav-btn">Home</a>
+                <a href="/menu" class="nav-btn active">Menu</a>
+                <a href="/about" class="nav-btn">About</a>
+                <a href="/contact" class="nav-btn">Contact</a>
+            </div>
         </div>
     </nav>
 
@@ -35,7 +35,7 @@
             {% endfor %}
         </div>
 
-        <div class="menu-grid" id="menuGrid">
+        <div class="menu-grid">
             {% for item in menu_items %}
             <div class="menu-card animate-card" data-category="{{ item.category }}">
                 {% if item.popular %}
@@ -70,7 +70,7 @@
             <div class="combo-card">
                 <div class="combo-icon">🍕</div>
                 <h3>Pizza + Shake Combo</h3>
-                <p>Medium Pizza + 2 Shakes</p>
+                <p>Medium Pizza + Mango + Strawberry Shake</p>
                 <span class="combo-price">₹350</span>
                 <button class="combo-btn">Order Now</button>
             </div>
@@ -87,6 +87,12 @@
     <footer class="footer">
         <div class="footer-content">
             <p>&copy; 2024 Pizza With Spice. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="/">Home</a>
+                <a href="/menu">Menu</a>
+                <a href="/about">About</a>
+                <a href="/contact">Contact</a>
+            </div>
         </div>
     </footer>
 
@@ -100,12 +106,6 @@
                     card.style.display = (category === 'All' || card.dataset.category === category) ? 'block' : 'none';
                 });
             });
-        });
-
-        // Scroll animation
-        const cards = document.querySelectorAll('.menu-card');
-        cards.forEach((card, index) => {
-            card.style.animationDelay = `${index * 0.1}s`;
         });
     </script>
 </body>
