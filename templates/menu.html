@@ -1,17 +1,15 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu - Royal Spice</title>
+    <title>Menu - Pizza With Spice</title>
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
-    <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
-            <a href="/" class="nav-logo">Royal Spice</a>
+            <a href="/" class="nav-logo">Pizza With Spice</a>
             <ul class="nav-menu">
                 <li><a href="/" class="nav-link">Home</a></li>
                 <li><a href="/menu" class="nav-link active">Menu</a></li>
@@ -21,11 +19,9 @@
         </div>
     </nav>
 
-    <!-- Menu Section -->
     <section class="menu-section">
         <h1 class="menu-title">Our Menu</h1>
         
-        <!-- Category Filter -->
         <div class="menu-filters">
             {% for category in categories %}
             <button class="filter-btn {% if category == 'All' %}active{% endif %}" 
@@ -33,7 +29,6 @@
             {% endfor %}
         </div>
 
-        <!-- Menu Items -->
         <div class="menu-grid">
             {% for item in menu_items %}
             <div class="menu-item animate-card" data-category="{{ item.category }}">
@@ -49,27 +44,20 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
-            <p>&copy; 2024 Royal Spice. All rights reserved.</p>
+            <p>&copy; 2024 Pizza With Spice. All rights reserved.</p>
         </div>
     </footer>
 
     <script>
-        // Filter functionality
         document.querySelectorAll('.filter-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                
                 const category = btn.dataset.category;
                 document.querySelectorAll('.menu-item').forEach(item => {
-                    if (category === 'All' || item.dataset.category === category) {
-                        item.style.display = 'block';
-                    } else {
-                        item.style.display = 'none';
-                    }
+                    item.style.display = (category === 'All' || item.dataset.category === category) ? 'block' : 'none';
                 });
             });
         });
