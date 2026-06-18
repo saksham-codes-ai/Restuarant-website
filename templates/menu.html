@@ -5,44 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu - Pizza With Spice</title>
     <link rel="stylesheet" href="/static/css/style.css">
-    <style>
-        .add-to-cart-btn { background: #6b4c9a; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; width: 100%; margin-top: 10px; font-size: 14px; }
-        .add-to-cart-btn:hover { background: #5a3f8a; }
-        .payment-info { background: #f0f0f0; padding: 15px; border-radius: 8px; margin: 20px 0; text-align: center; }
-        .payment-info h3 { color: #6b4c9a; margin-bottom: 10px; }
-        .payment-info p { margin: 5px 0; font-size: 14px; }
-        .cart-toggle { position: fixed; top: 80px; right: 20px; background: #6b4c9a; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; z-index: 999; font-size: 14px; }
-        .cart { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 15px rgba(0,0,0,0.15); position: fixed; top: 120px; right: 20px; width: 400px; max-height: 500px; overflow-y: auto; z-index: 1000; }
-        .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid #6b4c9a; }
-        .cart-header h2 { color: #6b4c9a; font-size: 22px; }
-        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px solid #eee; margin-bottom: 8px; }
-        .cart-item-info { flex: 1; }
-        .cart-item-name { font-weight: bold; color: #333; margin-bottom: 5px; }
-        .cart-item-details { font-size: 12px; color: #666; }
-        .cart-item-controls { display: flex; align-items: center; gap: 8px; }
-        .qty-btn { background: #6b4c9a; color: white; border: none; width: 28px; height: 28px; border-radius: 5px; cursor: pointer; font-size: 14px; }
-        .qty-display { font-weight: bold; min-width: 30px; text-align: center; }
-        .cart-item-price { font-weight: bold; color: #6b4c9a; min-width: 70px; text-align: right; }
-        .remove-btn { background: #ff4444; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; font-size: 12px; margin-left: 8px; }
-        .cart-total { font-size: 22px; font-weight: bold; margin: 15px 0; color: #6b4c9a; padding: 10px; background: #f9f9f9; border-radius: 5px; }
-        .order-btn { background: #6b4c9a; color: white; border: none; padding: 14px 24px; border-radius: 5px; cursor: pointer; width: 100%; font-size: 16px; margin: 10px 0; font-weight: bold; }
-        .close-cart { background: #ccc; color: black; border: none; padding: 12px 20px; border-radius: 5px; cursor: pointer; width: 100%; margin-top: 5px; }
-        .order-form { background: white; padding: 25px; border-radius: 10px; box-shadow: 0 2px 15px rgba(0,0,0,0.15); position: fixed; top: 100px; right: 20px; width: 400px; z-index: 1001; display: none; }
-        .order-form h2 { color: #6b4c9a; margin-bottom: 15px; }
-        .order-form input, .order-form textarea { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; }
-        .confirm-btn { background: #6b4c9a; color: white; border: none; padding: 14px 24px; border-radius: 5px; cursor: pointer; width: 100%; font-size: 16px; margin: 15px 0; font-weight: bold; }
-        .back-btn { background: #ccc; color: black; border: none; padding: 12px 20px; border-radius: 5px; cursor: pointer; width: 100%; margin-top: 10px; }
-        .size-selector { display: flex; gap: 8px; margin-top: 8px; }
-        .size-option { flex: 1; padding: 8px; border: 2px solid #ddd; border-radius: 5px; cursor: pointer; text-align: center; font-size: 12px; background: white; }
-        .size-option.selected { border-color: #6b4c9a; background: #f0e6ff; }
-        .size-price { font-size: 10px; color: #666; display: block; }
-        .order-preview { background: #f9f9f9; padding: 15px; border-radius: 5px; margin: 15px 0; }
-        .order-preview h3 { color: #6b4c9a; margin-bottom: 10px; font-size: 18px; }
-        
-        #size-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1002; }
-        #size-modal-content { background: white; padding: 25px; border-radius: 10px; width: 350px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
-    
-    </style>
 </head>
 <body>
     <nav class="navbar">
@@ -62,13 +24,10 @@
         <p class="menu-hero-subtitle">50+ Delicious Items - Fresh & Hot</p>
     </section>
 
-    <button class="cart-toggle" onclick="toggleCart()">🛒 Cart (<span id="cart-count">0</span>)</button>
-
     <section class="menu-section">
         <div class="menu-filters">
             {% for category in categories %}
             <button class="filter-btn {% if category == 'All' %}active{% endif %}" data-category="{{ category }}">
-                <span class="filter-icon">{% if category == 'Pizza' %}🍕{% elif category == 'Burgers' %}🍔{% elif category == 'Sandwich' %}🥪{% elif category == 'Snacks' %}🍟{% elif category == 'Pasta' %}🍝{% elif category == 'Shakes' %}🥤{% elif category == 'Coffee' %}☕{% elif category == 'Mojito' %}🍹{% elif category == 'Combos' %}🎁{% else %}✨{% endif %}</span>
                 {{ category }}
             </button>
             {% endfor %}
@@ -76,7 +35,7 @@
 
         <div class="menu-grid">
             {% for item in menu_items %}
-            <div class="menu-card animate-card" data-category="{{ item.category }}">
+            <div class="menu-card" data-category="{{ item.category }}">
                 {% if item.popular %}<div class="popular-badge">⭐ Popular</div>{% endif %}
                 <div class="card-image"><div class="card-icon">{{ item.image }}</div></div>
                 <div class="card-content">
@@ -84,7 +43,7 @@
                     <p class="card-desc">{{ item.description }}</p>
                     <div class="card-footer">
                         <span class="card-price">₹{{ item.price }}</span>
-                        <button class="add-to-cart-btn" onclick="addItem('{{ item.name }}', {{ item.price }})">Add to Cart</button>
+                        <button onclick="addToCart('{{ item.name }}', {{ item.price }})">Add to Cart</button>
                     </div>
                 </div>
             </div>
@@ -92,49 +51,41 @@
         </div>
     </section>
 
-    <div class="payment-info">
-        <h3>💰 Payment Method</h3>
+    <div style="background:#f0f0f0; padding:15px; border-radius:8px; margin:20px 0; text-align:center;">
+        <h3 style="color:#6b4c9a; margin-bottom:10px;">💰 Payment Method</h3>
         <p>✅ <strong>Cash on Delivery</strong></p>
         <p>Pay when food arrives at your door</p>
     </div>
 
-    <div id="size-modal">
-        <div id="size-modal-content">
-            <h2>Select Size</h2>
-            <div id="size-options"></div>
-            <button class="close-cart" onclick="closeSizeModal()" style="margin-top:15px;">Cancel</button>
-        </div>
-    </div>
-
-    <div id="cart" class="cart" style="display:none;">
-        <div class="cart-header"><h2>🛒 Your Order</h2></div>
+    <div id="cart" style="display:none; background:white; padding:20px; border-radius:10px; margin:20px 0; box-shadow:0 2px 10px rgba(0,0,0,0.1);">
+        <h2>🛒 Your Cart</h2>
         <div id="cart-items"></div>
-        <div class="cart-total"><strong>Total: ₹<span id="total-price">0</span></strong></div>
-        <button class="order-btn" onclick="showOrderForm()">→ Order Now - Pay on Delivery</button>
-        <button class="close-cart" onclick="toggleCart()">Close Cart</button>
+        <div style="font-size:20px; font-weight:bold; margin:15px 0; color:#6b4c9a;">
+            <strong>Total: ₹<span id="total-price">0</span></strong>
+        </div>
+        <button onclick="showOrderForm()" style="background:#6b4c9a; color:white; padding:12px 24px; border:none; border-radius:5px; cursor:pointer; width:100%; margin:10px 0; font-size:16px;">Order Now - Pay on Delivery</button>
+        <button onclick="hideCart()" style="background:#ccc; color:black; padding:10px 20px; border:none; border-radius:5px; cursor:pointer; width:100%; margin-top:5px;">Close</button>
     </div>
 
-    <div id="order-form" class="order-form">
-        <h2>📝 Complete Your Order</h2>
-        <div class="order-preview">
-            <h3>🍽️ Your Order</h3>
-            <div id="preview-items"></div>
-            <div style="font-size:20px; font-weight:bold; color:#6b4c9a; margin-top:10px;">Total: ₹<span id="preview-total">0</span></div>
-        </div>
-        <input type="text" id="customer-name" placeholder="👤 Your Name" required>
-        <input type="tel" id="customer-phone" placeholder="📱 Phone Number" required>
-        <input type="text" id="customer-address" placeholder="📍 Delivery Address" required>
-        <textarea id="customer-notes" placeholder="💬 Order Notes (optional)" rows="2"></textarea>
-        <button class="confirm-btn" onclick="confirmOrder()">✅ Confirm Order - Pay ₹<span id="order-total">0</span> on Delivery</button>
-        <button class="back-btn" onclick="hideOrderForm()">← Back to Cart</button>
+    <div id="order-form" style="display:none; background:white; padding:20px; border-radius:10px; margin:20px 0; box-shadow:0 2px 10px rgba(0,0,0,0.1);">
+        <h2>📝 Order Details</h2>
+        <input type="text" id="customer-name" placeholder="Your Name" style="width:100%; padding:12px; margin:10px 0; border:1px solid #ddd; border-radius:5px;">
+        <input type="tel" id="customer-phone" placeholder="Phone Number" style="width:100%; padding:12px; margin:10px 0; border:1px solid #ddd; border-radius:5px;">
+        <input type="text" id="customer-address" placeholder="Address" style="width:100%; padding:12px; margin:10px 0; border:1px solid #ddd; border-radius:5px;">
+        <button onclick="confirmOrder()" style="background:#6b4c9a; color:white; padding:12px 24px; border:none; border-radius:5px; cursor:pointer; width:100%; margin:10px 0; font-size:16px;">Confirm Order - Pay ₹<span id="order-total">0</span> on Delivery</button>
+        <button onclick="hideOrderForm()" style="background:#ccc; color:black; padding:10px 20px; border:none; border-radius:5px; cursor:pointer; width:100%; margin-top:10px;">Back</button>
     </div>
 
     <section class="combo-section">
         <h2 class="combo-title">🎁 Special Combos</h2>
         <div class="combo-grid">
-            <div class="combo-card"><div class="combo-icon">🍔</div><h3>Burger Combo</h3><p>2 Cheese Burger + Fries + 2 Coke</p><span class="combo-price">₹250</span><button class="combo-btn">Order Now</button></div>
-            <div class="combo-card"><div class="combo-icon">🍕</div><h3>Pizza + Shake Combo</h3><p>Medium Pizza + Mango + Strawberry Shake</p><span class="combo-price">₹350</span><button class="combo-btn">Order Now</button></div>
-            <div class="combo-card"><div class="combo-icon">🎁</div><h3>Mega Combo</h3><p>Large Pizza + 3 Burger + Garlic Bread + 2 Lava + 2 Coke</p><span class="combo-price">₹600</span><button class="combo-btn">Order Now</button></div>
+            <div class="combo-card">
+                <div class="combo-icon">🍔</div>
+                <h3>Burger Combo</h3>
+                <p>2 Cheese Burger + Fries + 2 Coke</p>
+                <span class="combo-price">₹250</span>
+                <button class="combo-btn">Order Now</button>
+            </div>
         </div>
     </section>
 
@@ -142,170 +93,65 @@
         <div class="footer-content">
             <p>&copy; 2024 Pizza With Spice. All rights reserved.</p>
             <div class="footer-links">
-                <a href="/">Home</a><a href="/menu">Menu</a><a href="/about">About</a><a href="/contact">Contact</a>
+                <a href="/">Home</a>
+                <a href="/menu">Menu</a>
+                <a href="/about">About</a>
+                <a href="/contact">Contact</a>
             </div>
         </div>
     </footer>
 
     <script>
         let cart = [];
-        let selectedItem = null;
-
-        function addItem(name, price) {
-            selectedItem = {name, price};
-            const modal = document.getElementById('size-modal');
-            const optionsDiv = document.getElementById('size-options');
-            
-            optionsDiv.innerHTML = `
-                <div style="margin-bottom:15px;">
-                    <label style="font-weight:bold; color:#333;">Choose Size:</label>
-                    <div class="size-selector">
-                        <div class="size-option" onclick="selectSize('Regular', ${price})">
-                            <strong>Regular</strong><span class="size-price">₹${price}</span>
-                        </div>
-                        <div class="size-option" onclick="selectSize('Medium', ${Math.round(price * 1.5)})">
-                            <strong>Medium</strong><span class="size-price">₹${Math.round(price * 1.5)}</span>
-                        </div>
-                        <div class="size-option" onclick="selectSize('Large', ${price * 2})">
-                            <strong>Large</strong><span class="size-price">₹${price * 2}</span>
-                        </div>
-                    </div>
-                </div>
-            `;
-            
-            modal.style.display = 'flex';
-        }
-
-        function selectSize(size, price) {
-            cart.push({name: selectedItem.name, size: size, price: price, qty: 1});
+        
+        function addToCart(name, price) {
+            cart.push({name, price, qty: 1});
             updateCart();
-            alert(selectedItem.name + " (" + size + ") added! ₹" + price);
-            closeSizeModal();
+            alert(name + " added to cart!");
+            document.getElementById('cart').style.display = 'block';
         }
-
-        function closeSizeModal() {
-            document.getElementById('size-modal').style.display = 'none';
-            selectedItem = null;
-        }
-
+        
         function updateCart() {
             const cartItems = document.getElementById('cart-items');
             const totalPrice = document.getElementById('total-price');
-            const cartCount = document.getElementById('cart-count');
-            
             cartItems.innerHTML = '';
             let total = 0;
-            let count = 0;
-            
-            cart.forEach((item, index) => {
-                const itemTotal = item.price * item.qty;
-                total += itemTotal;
-                count += item.qty;
-                
-                cartItems.innerHTML += `
-                    <div class="cart-item">
-                        <div class="cart-item-info">
-                            <div class="cart-item-name">${item.name}</div>
-                            <div class="cart-item-details">${item.size} | ₹${item.price}/each</div>
-                        </div>
-                        <div class="cart-item-controls">
-                            <button class="qty-btn" onclick="changeQty(${index}, -1)">-</button>
-                            <span class="qty-display">${item.qty}</span>
-                            <button class="qty-btn" onclick="changeQty(${index}, 1)">+</button>
-                            <span class="cart-item-price">₹${itemTotal}</span>
-                            <button class="remove-btn" onclick="removeItem(${index})">✕</button>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            totalPrice.innerText = total;
-            cartCount.innerText = count;
-        }
-
-        function changeQty(index, change) {
-            cart[index].qty += change;
-            if(cart[index].qty <= 0) removeItem(index);
-            else updateCart();
-        }
-
-        function removeItem(index) {
-            cart.splice(index, 1);
-            updateCart();
-        }
-
-        function toggleCart() {
-            const cart = document.getElementById('cart');
-            cart.style.display = cart.style.display === 'none' ? 'block' : 'none';
-        }
-
-        function showOrderForm() {
-            if(cart.length === 0) { alert("Cart is empty!"); return; }
-            
-            const previewItems = document.getElementById('preview-items');
-            const previewTotal = document.getElementById('preview-total');
-            const orderTotal = document.getElementById('order-total');
-            
-            previewItems.innerHTML = '';
-            let total = 0;
-            
             cart.forEach(item => {
-                const itemTotal = item.price * item.qty;
-                total += itemTotal;
-                previewItems.innerHTML += `<div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid #ddd;"><span>${item.name} (${item.size}) × ${item.qty}</span><span>₹${itemTotal}</span></div>`;
+                cartItems.innerHTML += `<div style="padding:10px; border-bottom:1px solid #eee;">${item.name} - ₹${item.price}</div>`;
+                total += item.price;
             });
-            
-            previewTotal.innerText = total;
-            orderTotal.innerText = total;
+            totalPrice.innerText = total;
+        }
+        
+        function showOrderForm() {
+            if(cart.length === 0) { alert("Cart empty!"); return; }
+            document.getElementById('order-total').innerText = document.getElementById('total-price').innerText;
             document.getElementById('order-form').style.display = 'block';
             document.getElementById('cart').style.display = 'none';
         }
-
+        
         function confirmOrder() {
             const name = document.getElementById('customer-name').value;
             const phone = document.getElementById('customer-phone').value;
             const address = document.getElementById('customer-address').value;
-            const notes = document.getElementById('customer-notes').value;
-            
-            if(!name || !phone || !address) { alert("Fill Name, Phone, Address!"); return; }
-            
-            let msg = `✅ ORDER CONFIRMED!
-
-👤 ${name}
-📱 ${phone}
-📍 ${address}
-`;
-            if(notes) msg += `💬 ${notes}
-`;
-            msg += `
-🍽️ Order:
-`;
-            cart.forEach(item => msg += `  • ${item.name} (${item.size}) × ${item.qty} = ₹${item.price * item.qty}
-`);
-            msg += `
-💰 Total: ₹${document.getElementById('total-price').innerText}
-✅ Pay on delivery!`;
-            
-            alert(msg);
+            if(!name || !phone || !address) { alert("Fill all!"); return; }
+            alert("✅ Order Confirmed!
+👤 " + name + "
+📱 " + phone + "
+📍 " + address + "
+💰 ₹" + document.getElementById('total-price').innerText);
             cart = [];
             updateCart();
             hideOrderForm();
         }
-
+        
         function hideOrderForm() {
             document.getElementById('order-form').style.display = 'none';
         }
-
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                const category = btn.dataset.category;
-                document.querySelectorAll('.menu-card').forEach(card => {
-                    card.style.display = (category === 'All' || card.dataset.category === category) ? 'block' : 'none';
-                });
-            });
-        });
+        
+        function hideCart() {
+            document.getElementById('cart').style.display = 'none';
+        }
     </script>
 </body>
 </html>
