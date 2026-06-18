@@ -35,97 +35,6 @@
             margin: 5px 0;
             font-size: 14px;
         }
-        .cart {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: fixed;
-            top: 100px;
-            right: 20px;
-            width: 350px;
-            max-height: 400px;
-            overflow-y: auto;
-            z-index: 1000;
-        }
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px;
-            border-bottom: 1px solid #eee;
-        }
-        .cart-total {
-            font-size: 20px;
-            font-weight: bold;
-            margin: 15px 0;
-            color: #6b4c9a;
-        }
-        .order-btn {
-            background: #6b4c9a;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-            font-size: 16px;
-            margin: 10px 0;
-        }
-        .order-btn:hover {
-            background: #5a3f8a;
-        }
-        .close-cart {
-            background: #ccc;
-            color: black;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 5px;
-        }
-        .order-form {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: fixed;
-            top: 150px;
-            right: 20px;
-            width: 350px;
-            z-index: 1001;
-        }
-        .order-form input {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 14px;
-        }
-        .confirm-btn {
-            background: #6b4c9a;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-            font-size: 16px;
-            margin: 10px 0;
-        }
-        .back-btn {
-            background: #ccc;
-            color: black;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 10px;
-        }
         .cart-toggle {
             position: fixed;
             top: 80px;
@@ -137,9 +46,217 @@
             border-radius: 5px;
             cursor: pointer;
             z-index: 999;
+            font-size: 14px;
         }
         .cart-toggle:hover {
             background: #5a3f8a;
+        }
+        .cart {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.15);
+            position: fixed;
+            top: 120px;
+            right: 20px;
+            width: 400px;
+            max-height: 500px;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #6b4c9a;
+        }
+        .cart-header h2 {
+            color: #6b4c9a;
+            font-size: 22px;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 8px;
+        }
+        .cart-item-info {
+            flex: 1;
+        }
+        .cart-item-name {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        .cart-item-details {
+            font-size: 12px;
+            color: #666;
+        }
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .qty-btn {
+            background: #6b4c9a;
+            color: white;
+            border: none;
+            width: 28px;
+            height: 28px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .qty-btn:hover {
+            background: #5a3f8a;
+        }
+        .qty-display {
+            font-weight: bold;
+            min-width: 30px;
+            text-align: center;
+        }
+        .cart-item-price {
+            font-weight: bold;
+            color: #6b4c9a;
+            min-width: 70px;
+            text-align: right;
+        }
+        .remove-btn {
+            background: #ff4444;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-left: 8px;
+        }
+        .remove-btn:hover {
+            background: #cc0000;
+        }
+        .cart-total {
+            font-size: 22px;
+            font-weight: bold;
+            margin: 15px 0;
+            color: #6b4c9a;
+            padding: 10px;
+            background: #f9f9f9;
+            border-radius: 5px;
+        }
+        .order-btn {
+            background: #6b4c9a;
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+        .order-btn:hover {
+            background: #5a3f8a;
+        }
+        .close-cart {
+            background: #ccc;
+            color: black;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 5px;
+        }
+        .order-form {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.15);
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            width: 400px;
+            z-index: 1001;
+        }
+        .order-form h2 {
+            color: #6b4c9a;
+            margin-bottom: 15px;
+        }
+        .order-form input, .order-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .confirm-btn {
+            background: #6b4c9a;
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+        .back-btn {
+            background: #ccc;
+            color: black;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+        .size-selector {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        .size-option {
+            flex: 1;
+            padding: 8px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 12px;
+            background: white;
+        }
+        .size-option.selected {
+            border-color: #6b4c9a;
+            background: #f0e6ff;
+        }
+        .size-price {
+            font-size: 10px;
+            color: #666;
+            display: block;
+        }
+        .order-preview {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .order-preview h3 {
+            color: #6b4c9a;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        .size-selector legend {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
         }
     </style>
 </head>
@@ -188,7 +305,7 @@
                     <p class="card-desc">{{ item.description }}</p>
                     <div class="card-footer">
                         <span class="card-price">₹{{ item.price }}</span>
-                        <button class="add-to-cart-btn" onclick="addToCart('{{ item.name }}', {{ item.price }})">Add to Cart</button>
+                        <button class="add-to-cart-btn" onclick="showSizeSelector('{{ item.name }}', {{ item.price }})">Add to Cart</button>
                     </div>
                 </div>
             </div>
@@ -202,23 +319,44 @@
         <p>Pay when food arrives at your door</p>
     </div>
 
+    <div id="size-selector-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1002; justify-content:center; align-items:center;">
+        <div style="background:white; padding:25px; border-radius:10px; width:350px;">
+            <h2 style="color:#6b4c9a; margin-bottom:15px;">Select Size</h2>
+            <div id="size-selector-content"></div>
+            <button class="close-cart" onclick="closeSizeSelector()" style="margin-top:15px;">Cancel</button>
+        </div>
+    </div>
+
     <div id="cart" class="cart" style="display:none;">
-        <h2>🛒 Your Cart</h2>
+        <div class="cart-header">
+            <h2>🛒 Your Order</h2>
+        </div>
         <div id="cart-items"></div>
         <div class="cart-total">
             <strong>Total: ₹<span id="total-price">0</span></strong>
         </div>
-        <button class="order-btn" onclick="showOrderForm()">Order Now - Pay on Delivery</button>
-        <button class="close-cart" onclick="toggleCart()">Close</button>
+        <button class="order-btn" onclick="showOrderForm()">→ Order Now - Pay on Delivery</button>
+        <button class="close-cart" onclick="toggleCart()">Close Cart</button>
     </div>
 
     <div id="order-form" class="order-form" style="display:none;">
-        <h2>📝 Order Details</h2>
-        <input type="text" id="customer-name" placeholder="Your Name" required>
-        <input type="tel" id="customer-phone" placeholder="Phone Number" required>
-        <input type="text" id="customer-address" placeholder="Address" required>
-        <button class="confirm-btn" onclick="confirmOrder()">Confirm Order - Pay ₹<span id="order-total">0</span> on Delivery</button>
-        <button class="back-btn" onclick="hideOrderForm()">Back</button>
+        <h2>📝 Complete Your Order</h2>
+        
+        <div class="order-preview">
+            <h3>🍽️ Your Order</h3>
+            <div id="preview-items"></div>
+            <div style="font-size:20px; font-weight:bold; color:#6b4c9a; margin-top:10px;">
+                Total: ₹<span id="preview-total">0</span>
+            </div>
+        </div>
+        
+        <input type="text" id="customer-name" placeholder="👤 Your Name" required>
+        <input type="tel" id="customer-phone" placeholder="📱 Phone Number" required>
+        <input type="text" id="customer-address" placeholder="📍 Delivery Address" required>
+        <textarea id="customer-notes" placeholder="💬 Order Notes (optional - e.g., 'less spicy', 'no onion')" rows="2"></textarea>
+        
+        <button class="confirm-btn" onclick="confirmOrder()">✅ Confirm Order - Pay ₹<span id="order-total">0</span> on Delivery</button>
+        <button class="back-btn" onclick="hideOrderForm()">← Back to Cart</button>
     </div>
 
     <section class="combo-section">
@@ -262,11 +400,58 @@
 
     <script>
         let cart = [];
+        let currentItem = null;
 
-        function addToCart(name, price) {
-            cart.push({name, price});
+        function showSizeSelector(name, basePrice) {
+            currentItem = {name, basePrice};
+            const modal = document.getElementById('size-selector-modal');
+            const content = document.getElementById('size-selector-content');
+            
+            content.innerHTML = `
+                <div style="margin-bottom:15px;">
+                    <label style="font-weight:bold; color:#333;">Choose Size:</label>
+                    <div class="size-selector">
+                        <div class="size-option" onclick="selectSize('Regular', ${basePrice})">
+                            <strong>Regular</strong>
+                            <span class="size-price">₹${basePrice}</span>
+                        </div>
+                        <div class="size-option" onclick="selectSize('Medium', ${basePrice * 1.5})">
+                            <strong>Medium</strong>
+                            <span class="size-price">₹${Math.round(basePrice * 1.5)}</span>
+                        </div>
+                        <div class="size-option" onclick="selectSize('Large', ${basePrice * 2})">
+                            <strong>Large</strong>
+                            <span class="size-price">₹${basePrice * 2}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            modal.style.display = 'flex';
+        }
+
+        function closeSizeSelector() {
+            document.getElementById('size-selector-modal').style.display = 'none';
+            currentItem = null;
+        }
+
+        function selectSize(size, price) {
+            const options = document.querySelectorAll('.size-option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            options.forEach(opt => {
+                if(opt.querySelector('strong').textContent === size) {
+                    opt.classList.add('selected');
+                }
+            });
+            
+            addItemToCart(currentItem.name, size, price);
+            closeSizeSelector();
+        }
+
+        function addItemToCart(name, size, price) {
+            cart.push({name, size, price, qty: 1});
             updateCart();
-            alert(name + " added to cart!");
+            alert(name + " (" + size + ") added to cart!");
         }
 
         function updateCart() {
@@ -276,15 +461,46 @@
             
             cartItems.innerHTML = '';
             let total = 0;
+            let count = 0;
             
-            cart.forEach(item => {
-                cartItems.innerHTML += `<div class="cart-item"><span>${item.name}</span><span>₹${item.price}</span></div>`;
-                total += item.price;
+            cart.forEach((item, index) => {
+                const itemTotal = item.price * item.qty;
+                total += itemTotal;
+                count += item.qty;
+                
+                cartItems.innerHTML += `
+                    <div class="cart-item">
+                        <div class="cart-item-info">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-details">${item.size} | ₹${item.price}/each</div>
+                        </div>
+                        <div class="cart-item-controls">
+                            <button class="qty-btn" onclick="changeQty(${index}, -1)">-</button>
+                            <span class="qty-display">${item.qty}</span>
+                            <button class="qty-btn" onclick="changeQty(${index}, 1)">+</button>
+                            <span class="cart-item-price">₹${itemTotal}</span>
+                            <button class="remove-btn" onclick="removeItem(${index})">✕</button>
+                        </div>
+                    </div>
+                `;
             });
             
             totalPrice.innerText = total;
-            cartCount.innerText = cart.length;
-            document.getElementById('cart').style.display = 'block';
+            cartCount.innerText = count;
+        }
+
+        function changeQty(index, change) {
+            cart[index].qty += change;
+            if(cart[index].qty <= 0) {
+                removeItem(index);
+            } else {
+                updateCart();
+            }
+        }
+
+        function removeItem(index) {
+            cart.splice(index, 1);
+            updateCart();
         }
 
         function toggleCart() {
@@ -293,7 +509,32 @@
         }
 
         function showOrderForm() {
-            document.getElementById('order-total').innerText = document.getElementById('total-price').innerText;
+            if(cart.length === 0) {
+                alert("Your cart is empty! Add items first.");
+                return;
+            }
+            
+            const previewItems = document.getElementById('preview-items');
+            const previewTotal = document.getElementById('preview-total');
+            const orderTotal = document.getElementById('order-total');
+            
+            previewItems.innerHTML = '';
+            let total = 0;
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.qty;
+                total += itemTotal;
+                previewItems.innerHTML += `
+                    <div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid #ddd;">
+                        <span>${item.name} (${item.size}) × ${item.qty}</span>
+                        <span>₹${itemTotal}</span>
+                    </div>
+                `;
+            });
+            
+            previewTotal.innerText = total;
+            orderTotal.innerText = total;
+            
             document.getElementById('order-form').style.display = 'block';
             document.getElementById('cart').style.display = 'none';
         }
@@ -302,21 +543,42 @@
             const name = document.getElementById('customer-name').value;
             const phone = document.getElementById('customer-phone').value;
             const address = document.getElementById('customer-address').value;
+            const notes = document.getElementById('customer-notes').value;
             
             if(!name || !phone || !address) {
-                alert("Please fill all details!");
+                alert("Please fill Name, Phone, and Address!");
                 return;
             }
             
-            alert(`✅ Order Confirmed!
+            let orderSummary = `✅ ORDER CONFIRMED!
 
-👤 Customer: ${name}
-📱 Phone: ${phone}
-📍 Address: ${address}
-💰 Total: ₹${document.getElementById('total-price').innerText}
-
-✅ Pay on delivery when food arrives!`);
+`;
+            orderSummary += `👤 Customer: ${name}
+`;
+            orderSummary += `📱 Phone: ${phone}
+`;
+            orderSummary += `📍 Address: ${address}
+`;
+            if(notes) orderSummary += `💬 Notes: ${notes}
+`;
+            orderSummary += `
+🍽️ Your Order:
+`;
             
+            cart.forEach(item => {
+                orderSummary += `  • ${item.name} (${item.size}) × ${item.qty} = ₹${item.price * item.qty}
+`;
+            });
+            
+            orderSummary += `
+💰 Total: ₹${document.getElementById('total-price').innerText}
+`;
+            orderSummary += `✅ Pay on delivery when food arrives!`;
+            
+            alert(orderSummary);
+            
+            // Here you can send order to backend (Flask) later
+            // For now, just reset cart
             cart = [];
             updateCart();
             hideOrderForm();
