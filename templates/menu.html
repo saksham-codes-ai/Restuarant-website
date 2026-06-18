@@ -5,6 +5,130 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu - Pizza With Spice</title>
     <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        .add-to-cart-btn {
+            background: #6b4c9a;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        .add-to-cart-btn:hover {
+            background: #5a3f8a;
+        }
+        .payment-info {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .payment-info h3 {
+            color: #6b4c9a;
+            margin-bottom: 10px;
+        }
+        .cart-toggle {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: #6b4c9a;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 999;
+            font-size: 14px;
+        }
+        .cart {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.15);
+            position: fixed;
+            top: 120px;
+            right: 20px;
+            width: 350px;
+            max-height: 400px;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+        .cart-item {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .cart-total {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 15px 0;
+            color: #6b4c9a;
+        }
+        .order-btn {
+            background: #6b4c9a;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+        .close-cart {
+            background: #ccc;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 5px;
+        }
+        .order-form {
+            display: none;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.15);
+            position: fixed;
+            top: 150px;
+            right: 20px;
+            width: 350px;
+            z-index: 1001;
+        }
+        .order-form input {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .confirm-btn {
+            background: #6b4c9a;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+        .back-btn {
+            background: #ccc;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar">
@@ -24,6 +148,8 @@
         <p class="menu-hero-subtitle">50+ Delicious Items - Fresh & Hot</p>
     </section>
 
+    <button class="cart-toggle" onclick="toggleCart()">🛒 Cart (<span id="cart-count">0</span>)</button>
+
     <section class="menu-section">
         <div class="menu-filters">
             {% for category in categories %}
@@ -35,15 +161,19 @@
 
         <div class="menu-grid">
             {% for item in menu_items %}
-            <div class="menu-card" data-category="{{ item.category }}">
-                {% if item.popular %}<div class="popular-badge">⭐ Popular</div>{% endif %}
-                <div class="card-image"><div class="card-icon">{{ item.image }}</div></div>
+            <div class="menu-card animate-card" data-category="{{ item.category }}">
+                {% if item.popular %}
+                <div class="popular-badge">⭐ Popular</div>
+                {% endif %}
+                <div class="card-image">
+                    <div class="card-icon">{{ item.image }}</div>
+                </div>
                 <div class="card-content">
                     <h3 class="card-name">{{ item.name }}</h3>
                     <p class="card-desc">{{ item.description }}</p>
                     <div class="card-footer">
                         <span class="card-price">₹{{ item.price }}</span>
-                        <button onclick="addToCart('{{ item.name }}', {{ item.price }})">Add to Cart</button>
+                        <button class="add-to-cart-btn" onclick="addToCart('{{ item.name }}', {{ item.price }})">Add to Cart</button>
                     </div>
                 </div>
             </div>
@@ -51,29 +181,29 @@
         </div>
     </section>
 
-    <div style="background:#f0f0f0; padding:15px; border-radius:8px; margin:20px 0; text-align:center;">
-        <h3 style="color:#6b4c9a; margin-bottom:10px;">💰 Payment Method</h3>
+    <div class="payment-info">
+        <h3>💰 Payment Method</h3>
         <p>✅ <strong>Cash on Delivery</strong></p>
         <p>Pay when food arrives at your door</p>
     </div>
 
-    <div id="cart" style="display:none; background:white; padding:20px; border-radius:10px; margin:20px 0; box-shadow:0 2px 10px rgba(0,0,0,0.1);">
+    <div id="cart" class="cart" style="display:none;">
         <h2>🛒 Your Cart</h2>
         <div id="cart-items"></div>
-        <div style="font-size:20px; font-weight:bold; margin:15px 0; color:#6b4c9a;">
+        <div class="cart-total">
             <strong>Total: ₹<span id="total-price">0</span></strong>
         </div>
-        <button onclick="showOrderForm()" style="background:#6b4c9a; color:white; padding:12px 24px; border:none; border-radius:5px; cursor:pointer; width:100%; margin:10px 0; font-size:16px;">Order Now - Pay on Delivery</button>
-        <button onclick="hideCart()" style="background:#ccc; color:black; padding:10px 20px; border:none; border-radius:5px; cursor:pointer; width:100%; margin-top:5px;">Close</button>
+        <button class="order-btn" onclick="showOrderForm()">Order Now - Pay on Delivery</button>
+        <button class="close-cart" onclick="toggleCart()">Close</button>
     </div>
 
-    <div id="order-form" style="display:none; background:white; padding:20px; border-radius:10px; margin:20px 0; box-shadow:0 2px 10px rgba(0,0,0,0.1);">
+    <div id="order-form" class="order-form">
         <h2>📝 Order Details</h2>
-        <input type="text" id="customer-name" placeholder="Your Name" style="width:100%; padding:12px; margin:10px 0; border:1px solid #ddd; border-radius:5px;">
-        <input type="tel" id="customer-phone" placeholder="Phone Number" style="width:100%; padding:12px; margin:10px 0; border:1px solid #ddd; border-radius:5px;">
-        <input type="text" id="customer-address" placeholder="Address" style="width:100%; padding:12px; margin:10px 0; border:1px solid #ddd; border-radius:5px;">
-        <button onclick="confirmOrder()" style="background:#6b4c9a; color:white; padding:12px 24px; border:none; border-radius:5px; cursor:pointer; width:100%; margin:10px 0; font-size:16px;">Confirm Order - Pay ₹<span id="order-total">0</span> on Delivery</button>
-        <button onclick="hideOrderForm()" style="background:#ccc; color:black; padding:10px 20px; border:none; border-radius:5px; cursor:pointer; width:100%; margin-top:10px;">Back</button>
+        <input type="text" id="customer-name" placeholder="Your Name" required>
+        <input type="tel" id="customer-phone" placeholder="Phone Number" required>
+        <input type="text" id="customer-address" placeholder="Address" required>
+        <button class="confirm-btn" onclick="confirmOrder()">Confirm Order - Pay ₹<span id="order-total">0</span> on Delivery</button>
+        <button class="back-btn" onclick="hideOrderForm()">Back</button>
     </div>
 
     <section class="combo-section">
@@ -84,6 +214,20 @@
                 <h3>Burger Combo</h3>
                 <p>2 Cheese Burger + Fries + 2 Coke</p>
                 <span class="combo-price">₹250</span>
+                <button class="combo-btn">Order Now</button>
+            </div>
+            <div class="combo-card">
+                <div class="combo-icon">🍕</div>
+                <h3>Pizza + Shake Combo</h3>
+                <p>Medium Pizza + Mango + Strawberry Shake</p>
+                <span class="combo-price">₹350</span>
+                <button class="combo-btn">Order Now</button>
+            </div>
+            <div class="combo-card">
+                <div class="combo-icon">🎁</div>
+                <h3>Mega Combo</h3>
+                <p>Large Pizza + 3 Burger + Garlic Bread + 2 Lava + 2 Coke</p>
+                <span class="combo-price">₹600</span>
                 <button class="combo-btn">Order Now</button>
             </div>
         </div>
@@ -103,55 +247,86 @@
 
     <script>
         let cart = [];
-        
+
         function addToCart(name, price) {
-            cart.push({name, price, qty: 1});
+            cart.push({name: name, price: price, qty: 1});
             updateCart();
             alert(name + " added to cart!");
-            document.getElementById('cart').style.display = 'block';
         }
-        
+
         function updateCart() {
             const cartItems = document.getElementById('cart-items');
             const totalPrice = document.getElementById('total-price');
+            const cartCount = document.getElementById('cart-count');
+            
             cartItems.innerHTML = '';
             let total = 0;
+            let count = 0;
+            
             cart.forEach(item => {
-                cartItems.innerHTML += `<div style="padding:10px; border-bottom:1px solid #eee;">${item.name} - ₹${item.price}</div>`;
-                total += item.price;
+                cartItems.innerHTML += `<div class="cart-item">${item.name} × ${item.qty} = ₹${item.price * item.qty}</div>`;
+                total += item.price * item.qty;
+                count += item.qty;
             });
+            
             totalPrice.innerText = total;
+            cartCount.innerText = count;
+            document.getElementById('cart').style.display = 'block';
         }
-        
+
+        function toggleCart() {
+            const cart = document.getElementById('cart');
+            cart.style.display = cart.style.display === 'none' ? 'block' : 'none';
+        }
+
         function showOrderForm() {
-            if(cart.length === 0) { alert("Cart empty!"); return; }
+            if(cart.length === 0) {
+                alert("Cart is empty!");
+                return;
+            }
             document.getElementById('order-total').innerText = document.getElementById('total-price').innerText;
             document.getElementById('order-form').style.display = 'block';
             document.getElementById('cart').style.display = 'none';
         }
-        
+
         function confirmOrder() {
             const name = document.getElementById('customer-name').value;
             const phone = document.getElementById('customer-phone').value;
             const address = document.getElementById('customer-address').value;
-            if(!name || !phone || !address) { alert("Fill all!"); return; }
-            alert("✅ Order Confirmed!
-👤 " + name + "
-📱 " + phone + "
-📍 " + address + "
-💰 ₹" + document.getElementById('total-price').innerText);
+            
+            if(!name || !phone || !address) {
+                alert("Please fill all details!");
+                return;
+            }
+            
+            alert(`✅ Order Confirmed!
+
+👤 ${name}
+📱 ${phone}
+📍 ${address}
+💰 Total: ₹${document.getElementById('total-price').innerText}
+
+✅ Pay on delivery!`);
+            
             cart = [];
             updateCart();
             hideOrderForm();
         }
-        
+
         function hideOrderForm() {
             document.getElementById('order-form').style.display = 'none';
         }
-        
-        function hideCart() {
-            document.getElementById('cart').style.display = 'none';
-        }
+
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const category = btn.dataset.category;
+                document.querySelectorAll('.menu-card').forEach(card => {
+                    card.style.display = (category === 'All' || card.dataset.category === category) ? 'block' : 'none';
+                });
+            });
+        });
     </script>
 </body>
 </html>
