@@ -436,17 +436,27 @@
         }
 
         function selectSize(size, price) {
-            const options = document.querySelectorAll('.size-option');
-            options.forEach(opt => opt.classList.remove('selected'));
-            options.forEach(opt => {
-                if(opt.querySelector('strong').textContent === size) {
-                    opt.classList.add('selected');
-                }
-            });
-            
-            addItemToCart(currentItem.name, size, price);
-            closeSizeSelector();
+    console.log('DEBUG - Size:', size, 'Price:', price, 'Item:', currentItem);
+    
+    const options = document.querySelectorAll('.size-option');
+    options.forEach(opt => opt.classList.remove('selected'));
+    options.forEach(opt => {
+        if(opt.querySelector('strong').textContent === size) {
+            opt.classList.add('selected');
         }
+    });
+    
+    if(currentItem && currentItem.name) {
+        cart.push({name: currentItem.name, size: size, price: price, qty: 1});
+        updateCart();
+        alert(currentItem.name + " (" + size + ") added! ₹" + price);
+        closeSizeSelector();
+        currentItem = null;
+    } else {
+        alert("Error: Item not found!");
+        closeSizeSelector();
+    }
+}
 
         function addItemToCart(name, size, price) {
             cart.push({name, size, price, qty: 1});
@@ -455,39 +465,54 @@
         }
 
         function updateCart() {
-            const cartItems = document.getElementById('cart-items');
-            const totalPrice = document.getElementById('total-price');
-            const cartCount = document.getElementById('cart-count');
-            
-            cartItems.innerHTML = '';
-            let total = 0;
-            let count = 0;
-            
-            cart.forEach((item, index) => {
-                const itemTotal = item.price * item.qty;
-                total += itemTotal;
-                count += item.qty;
-                
-                cartItems.innerHTML += `
-                    <div class="cart-item">
-                        <div class="cart-item-info">
-                            <div class="cart-item-name">${item.name}</div>
-                            <div class="cart-item-details">${item.size} | ₹${item.price}/each</div>
-                        </div>
-                        <div class="cart-item-controls">
-                            <button class="qty-btn" onclick="changeQty(${index}, -1)">-</button>
-                            <span class="qty-display">${item.qty}</span>
-                            <button class="qty-btn" onclick="changeQty(${index}, 1)">+</button>
-                            <span class="cart-item-price">₹${itemTotal}</span>
-                            <button class="remove-btn" onclick="removeItem(${index})">✕</button>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            totalPrice.innerText = total;
-            cartCount.innerText = count;
-        }
+    const cartItems = document.getElementById('cart-items');
+    const totalPrice = document.getElementById('total-price');
+    const cartCount = document.getElementById('cart-count');
+    
+    if(!cartItems || !totalPrice || !cartCount) {
+        console.log('DEBUG - Cart elements not found!');
+        return;
+    }
+    
+    cartItems.innerHTML = '';
+    let total = 0;
+    let count = 0;
+    
+    console.log('DEBUG - Cart:', cart);
+    
+    if(cart.length === 0) {
+        cartItems.innerHTML = '<p style="text-align:center; color:#666;">Cart is empty</p>';
+        totalPrice.innerText = '0';
+        cartCount.innerText = '0';
+        return;
+    }
+    
+    cart.forEach((item, index) => {
+        const itemTotal = item.price * item.qty;
+        total += itemTotal;
+        count += item.qty;
+        
+        cartItems.innerHTML += `
+            <div class="cart-item">
+                <div class="cart-item-info">
+                    <div class="cart-item-name">${item.name}</div>
+                    <div class="cart-item-details">${item.size} | ₹${item.price}/each</div>
+                </div>
+                <div class="cart-item-controls">
+                    <button class="qty-btn" onclick="changeQty(${index}, -1)">-</button>
+                    <span class="qty-display">${item.qty}</span>
+                    <button class="qty-btn" onclick="changeQty(${index}, 1)">+</button>
+                    <span class="cart-item-price">₹${itemTotal}</span>
+                    <button class="remove-btn" onclick="removeItem(${index})">✕</button>
+                </div>
+            </div>
+        `;
+    });
+    
+    totalPrice.innerText = total;
+    cartCount.innerText = count;
+    console.log('DEBUG - Cart updated! Total:', total, 'Count:', count);
+}
 
         function changeQty(index, change) {
             cart[index].qty += change;
