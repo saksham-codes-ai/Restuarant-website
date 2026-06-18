@@ -5,6 +5,143 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu - Pizza With Spice</title>
     <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        .add-to-cart-btn {
+            background: #6b4c9a;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        .add-to-cart-btn:hover {
+            background: #5a3f8a;
+        }
+        .payment-info {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .payment-info h3 {
+            color: #6b4c9a;
+            margin-bottom: 10px;
+        }
+        .payment-info p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+        .cart {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            width: 350px;
+            max-height: 400px;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .cart-total {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 15px 0;
+            color: #6b4c9a;
+        }
+        .order-btn {
+            background: #6b4c9a;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+        .order-btn:hover {
+            background: #5a3f8a;
+        }
+        .close-cart {
+            background: #ccc;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 5px;
+        }
+        .order-form {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 150px;
+            right: 20px;
+            width: 350px;
+            z-index: 1001;
+        }
+        .order-form input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .confirm-btn {
+            background: #6b4c9a;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+        .back-btn {
+            background: #ccc;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+        .cart-toggle {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: #6b4c9a;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 999;
+        }
+        .cart-toggle:hover {
+            background: #5a3f8a;
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar">
@@ -23,6 +160,8 @@
         <h1 class="menu-hero-title">Our Menu</h1>
         <p class="menu-hero-subtitle">50+ Delicious Items - Fresh & Hot</p>
     </section>
+
+    <button class="cart-toggle" onclick="toggleCart()">🛒 Cart (<span id="cart-count">0</span>)</button>
 
     <section class="menu-section">
         <div class="menu-filters">
@@ -49,13 +188,38 @@
                     <p class="card-desc">{{ item.description }}</p>
                     <div class="card-footer">
                         <span class="card-price">₹{{ item.price }}</span>
-                        <button class="add-btn">Add +</button>
+                        <button class="add-to-cart-btn" onclick="addToCart('{{ item.name }}', {{ item.price }})">Add to Cart</button>
                     </div>
                 </div>
             </div>
             {% endfor %}
         </div>
     </section>
+
+    <div class="payment-info">
+        <h3>💰 Payment Method</h3>
+        <p>✅ <strong>Cash on Delivery</strong></p>
+        <p>Pay when food arrives at your door</p>
+    </div>
+
+    <div id="cart" class="cart" style="display:none;">
+        <h2>🛒 Your Cart</h2>
+        <div id="cart-items"></div>
+        <div class="cart-total">
+            <strong>Total: ₹<span id="total-price">0</span></strong>
+        </div>
+        <button class="order-btn" onclick="showOrderForm()">Order Now - Pay on Delivery</button>
+        <button class="close-cart" onclick="toggleCart()">Close</button>
+    </div>
+
+    <div id="order-form" class="order-form" style="display:none;">
+        <h2>📝 Order Details</h2>
+        <input type="text" id="customer-name" placeholder="Your Name" required>
+        <input type="tel" id="customer-phone" placeholder="Phone Number" required>
+        <input type="text" id="customer-address" placeholder="Address" required>
+        <button class="confirm-btn" onclick="confirmOrder()">Confirm Order - Pay ₹<span id="order-total">0</span> on Delivery</button>
+        <button class="back-btn" onclick="hideOrderForm()">Back</button>
+    </div>
 
     <section class="combo-section">
         <h2 class="combo-title">🎁 Special Combos</h2>
@@ -97,6 +261,71 @@
     </footer>
 
     <script>
+        let cart = [];
+
+        function addToCart(name, price) {
+            cart.push({name, price});
+            updateCart();
+            alert(name + " added to cart!");
+        }
+
+        function updateCart() {
+            const cartItems = document.getElementById('cart-items');
+            const totalPrice = document.getElementById('total-price');
+            const cartCount = document.getElementById('cart-count');
+            
+            cartItems.innerHTML = '';
+            let total = 0;
+            
+            cart.forEach(item => {
+                cartItems.innerHTML += `<div class="cart-item"><span>${item.name}</span><span>₹${item.price}</span></div>`;
+                total += item.price;
+            });
+            
+            totalPrice.innerText = total;
+            cartCount.innerText = cart.length;
+            document.getElementById('cart').style.display = 'block';
+        }
+
+        function toggleCart() {
+            const cart = document.getElementById('cart');
+            cart.style.display = cart.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function showOrderForm() {
+            document.getElementById('order-total').innerText = document.getElementById('total-price').innerText;
+            document.getElementById('order-form').style.display = 'block';
+            document.getElementById('cart').style.display = 'none';
+        }
+
+        function confirmOrder() {
+            const name = document.getElementById('customer-name').value;
+            const phone = document.getElementById('customer-phone').value;
+            const address = document.getElementById('customer-address').value;
+            
+            if(!name || !phone || !address) {
+                alert("Please fill all details!");
+                return;
+            }
+            
+            alert(`✅ Order Confirmed!
+
+👤 Customer: ${name}
+📱 Phone: ${phone}
+📍 Address: ${address}
+💰 Total: ₹${document.getElementById('total-price').innerText}
+
+✅ Pay on delivery when food arrives!`);
+            
+            cart = [];
+            updateCart();
+            hideOrderForm();
+        }
+
+        function hideOrderForm() {
+            document.getElementById('order-form').style.display = 'none';
+        }
+
         document.querySelectorAll('.filter-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
